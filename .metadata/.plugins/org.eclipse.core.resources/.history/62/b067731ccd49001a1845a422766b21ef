@@ -1,0 +1,5 @@
+package com.claim.finalproject.repository;
+
+public interface GameInfoRepository {
+
+}

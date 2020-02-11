@@ -1,0 +1,54 @@
+package com.claim.finalproject.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="wishlist")
+public class GameInfo {
+	
+	@Column(name="nameGame")
+	private String name;
+	@Column(name="id")
+	private int id;
+	@Column(name="initialPrice")
+	private int price;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="wishlist_id", referencedColumnName = "id")
+	private UserInfo user = new UserInfo();
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public UserInfo getUser() {
+		return user;
+	}
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
+	
+	
+	
+	
+}

@@ -1,0 +1,49 @@
+package com.claim.finalproject.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="wishlist")
+public class GameInfo {
+	
+	@Column(name="namegame")
+	private String name;
+	@Column(name="id")
+	private long id;
+	@Column(name="gameid") @Id
+	private long gameId;
+	
+	
+	
+	public GameInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public long getGameId() {
+		return gameId;
+	}
+	public void setGameId(long gameId) {
+		this.gameId = gameId;
+	}
+	
+
+	
+	
+	
+	
+}
