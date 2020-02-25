@@ -100,31 +100,49 @@ class WishlistCard extends Component {
                         
                     }
                 }
-
-                if(this.state.steamGame.data[dota.appid].data.price_overview.final/100 <= this.state.gogGame.price.finalAmount){
-                const tempState = {...this.state.gameInfo}
-                tempState["bestPrice"] = this.state.steamGame.data[dota.appid].data.price_overview.final/100;
-                tempState["seller"] = "Steam";
-                tempState["page"] = `https://store.steampowered.com/app/${this.state.steamGame.data[dota.appid].data.steam_appid}`
-                tempState["name"] = this.state.steamGame.data[dota.appid].data.name;
-                tempState["img"] = this.state.steamGame.data[dota.appid].data.header_image;
-                this.setState({
-                    gameInfo: tempState
-                })
-                //this.state.gameComp.push(this.state.gameInfo);
+                if(this.state.steamGame.data[dota.appid].data.is_free == false){
+                    if(this.state.steamGame.data[dota.appid].data.price_overview.final/100 <= this.state.gogGame.price.finalAmount){
+                        const tempState = {...this.state.gameInfo}
+                        tempState["bestPrice"] = "$"+this.state.steamGame.data[dota.appid].data.price_overview.final/100;
+                        tempState["seller"] = "Steam";
+                        tempState["page"] = `https://store.steampowered.com/app/${this.state.steamGame.data[dota.appid].data.steam_appid}`
+                        tempState["name"] = this.state.steamGame.data[dota.appid].data.name;
+                        tempState["img"] = this.state.steamGame.data[dota.appid].data.header_image;
+                        this.setState({
+                            gameInfo: tempState
+                        })
+                    //this.state.gameComp.push(this.state.gameInfo);
+                    }
+                    else{
+                        const tempState = {...this.state.gameInfo}
+                        if(this.state.gogGame.price.finalAmount == null){
+                            tempState["bestPrice"] = "free";
+                        }
+                        else{
+                            tempState["bestPrice"] = "$"+this.state.gogGame.price.finalAmount;
+                        }
+                       
+                        tempState["seller"] = "Gog";
+                        tempState["page"] = `https://www.gog.com${this.state.gogGame.url}`
+                        tempState["name"] = this.state.gogGame.title;
+                        tempState["img"] = this.state.steamGame.data[dota.appid].data.header_image;
+                        this.setState({
+                            gameInfo: tempState
+                        })
+                        console.log(this.state.gameInfo, "End of else price check statement");
+                        //this.state.gameComp.push(this.state.gameInfo);
+                    }
                 }
                 else{
                     const tempState = {...this.state.gameInfo}
-                    tempState["bestPrice"] = this.state.gogGame.price.finalAmount;
-                    tempState["seller"] = "Gog";
-                    tempState["page"] = `https://www.gog.com${this.state.gogGame.url}`
-                    tempState["name"] = this.state.gogGame.title;
+                    tempState["bestPrice"] = "Free";
+                    tempState["seller"] = "Steam";
+                    tempState["page"] = `https://store.steampowered.com/app/${this.state.steamGame.data[dota.appid].data.steam_appid}`
+                    tempState["name"] = this.state.steamGame.data[dota.appid].data.name;
                     tempState["img"] = this.state.steamGame.data[dota.appid].data.header_image;
                     this.setState({
                         gameInfo: tempState
                     })
-                    console.log(this.state.gameInfo, "End of else price check statement");
-                    //this.state.gameComp.push(this.state.gameInfo);
                 }
                 
                 let temp = this.state.gameComp;
@@ -146,7 +164,7 @@ class WishlistCard extends Component {
                         <h3>{gameComp.name}</h3>
                         <img src={gameComp.img}></img>
                         <h5>{gameComp.seller}</h5>
-                        ${gameComp.bestPrice}
+                        {gameComp.bestPrice}
                         <br/>
                         <a href={gameComp.page} target="_blank" className="aCard">{gameComp.name}</a>
                     </div>
